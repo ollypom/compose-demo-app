@@ -1,0 +1,31 @@
+version: '3.9'
+
+x-aws-vpc: demo-vpc
+x-aws-cluster: demo-cluster
+x-aws-loadbalancer: demo-elb
+
+services:
+  frontend:
+    image: frontend:1
+    build: ./frontend
+    environment:
+      REDIS_URL: "backend"
+    networks: 
+      - demoapp
+    ports:
+      - 8083:80
+
+  backend:
+    image: public.ecr.aws/bitnami/redis:6.2
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - redisdata:/data
+    networks:
+      - demoapp
+
+volumes:
+  redisdata:
+
+networks:
+  demoapp:
