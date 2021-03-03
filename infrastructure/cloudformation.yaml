@@ -247,7 +247,7 @@ Resources:
   DemoLoadbalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties: 
-      Name: !Sub "${AWS::StackName}-demo-loadbalancer"
+      Name: !Sub "${AWS::StackName}-alb"
       Type: "application"
       Scheme: "internet-facing"
       SecurityGroups: 
@@ -292,9 +292,6 @@ Outputs:
   VpcId:
     Description: The ID of the VPC that this stack is deployed in
     Value: !Ref 'VPC'
-  VpcCidr:
-    Description: The Cidr of the VPC
-    Value: !GetAtt 'VPC.CidrBlock'
   ClusterName:
     Description: The name of the ECS cluster
     Value: !Ref 'ECSCluster'
@@ -303,19 +300,7 @@ Outputs:
     Value: !Ref 'DemoLoadbalancer'
   LoadbalancerEndpoint:
     Description: The Demo App Loadbalancer Endpoint
-    Value: !GetAtt 'DemoLoadbalancer.DNSName'
-  ECSTaskExecutionRole:
-    Description: The ARN of the ECS role
-    Value: !GetAtt 'ECSTaskExecutionRole.Arn'
-  PublicSubnetOne:
-    Description: Public subnet one
-    Value: !Ref 'PublicSubnetOne'
-  PublicSubnetTwo:
-    Description: Public subnet two
-    Value: !Ref 'PublicSubnetTwo'
-  PrivateSubnetOne:
-    Description: Private subnet one
-    Value: !Ref 'PrivateSubnetOne'
-  PrivateSubnetTwo:
-    Description: Private subnet two
-    Value: !Ref 'PrivateSubnetTwo'
+    Value: !Join
+      - ""
+      - - "http://"
+        - !GetAtt 'DemoLoadbalancer.DNSName'

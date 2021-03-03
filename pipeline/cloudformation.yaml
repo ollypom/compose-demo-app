@@ -5,25 +5,22 @@ Parameters:
   ApplicationStackName:
     Description: Name of the not yet created Application CFN Stack
     Type: String
-    Default: docker-compose-application
+    Default: compose-application
     AllowedPattern: (^[a-z][a-z0-9-]+$)
   ChangeSetName:
     Description: Name of Cfn Change Set
     Type: String
-    Default: demo
+    Default: compose-demo
     AllowedPattern: (^[a-z][a-z0-9-]+$)
   ExistingAwsVpc:
     Description: Name of existing AWS Vpc
     Type: AWS::EC2::VPC::Id
-    Default: 'vpc-044baa462c8832877'
   ExistingLoadbalancer:
     Description: ARN of existing Application Loadbalancer 
     Type: String
-    Default: 'arn:aws:elasticloadbalancing:eu-west-1:223615444511:loadbalancer/app/ecs-demo-demo-loadbalancer/fab0048e1f0837a7'
   ExistingEcsCluster:
     Description: Name of existing Ecs Cluster
     Type: String
-    Default: 'ecs-demo-cluster'
 
 Resources:
 
